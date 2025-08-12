@@ -1,0 +1,1037 @@
+---
+---
+@charset "utf-8";
+// Core variables and mixins
+@import "base/variables.scss";
+@import "base/mixins.scss";
+
+// Custom Fonts
+{% if site.data.style.fonts %}
+  {% for font in site.data.style.fonts %}
+    @mixin {{font.for}}-font {
+      font-family: "{{ font.name }}", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+  {% endfor %}
+{% endif %}
+
+// Custom colors
+$primary: {{ site.data.style.highlight | default: "#fed136" }} !default;
+$white: {{ site.data.style.white | default: "#fff" }} !default;
+$black: {{ site.data.style.black | default: "#000" }} !default;
+
+// Custom Images
+$header-image: "{{ site.data.style.header-image }}";
+$contact-image: "{{ site.data.style.contact-image }}";
+
+
+// Global CSS
+@import "base/page.scss";
+
+// Components
+@import "components/buttons.scss";
+@import "components/navbar.scss";
+@import "components/client-scroll.scss";
+
+// Layout
+@import "layout/masthead.scss";
+@import "layout/services.scss";
+@import "layout/portfolio.scss";
+@import "layout/timeline.scss";
+@import "layout/team.scss";
+@import "layout/contact.scss";
+@import "layout/footer.scss";
+
+.masthead {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 100px 0;
+  background-image: url("../img/filetango-header.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  color: black;
+}
+
+body {
+  font-family: 'Roboto Slab', serif;
+}
+
+.navbar-brand,
+.navbar-brand strong{
+  font-family: 'Awesome', 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+/* Galería */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  background: #111;
+}
+
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 4/3;        /* recorte prolijo */
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform .35s ease, opacity .35s ease;
+  display: block;
+}
+
+.gallery-card:hover .gallery-img {
+  transform: scale(1.06);
+  opacity: .95;
+}
+
+.gallery-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: .6rem .9rem;
+  font-weight: 600;
+  font-size: .95rem;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.65) 90%);
+}
+
+.scroll-gallery {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin; /* Firefox */
+}
+
+.scroll-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+.scroll-gallery::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 300px;
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gallery-caption {
+  padding: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ===== Lightbox ===== */
+.lb { position: fixed; inset: 0; background: rgba(0,0,0,.85);
+  display: grid; grid-template-columns: auto 1fr auto; 
+  align-items: center; justify-items: center; gap: 1rem; z-index: 1050; }
+.lb.hidden { display: none; }
+
+.lb__figure { max-width: min(92vw, 1200px); max-height: 90vh; margin: 0; display: grid; gap: .5rem; }
+.lb__img { max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+.lb__cap { color: #fff; text-align: center; font-weight: 600; opacity: .9; }
+
+.lb__nav, .lb__close {
+position: relative; background: rgba(255,255,255,.15); color: #fff; border: 0; 
+width: 44px; height: 44px; border-radius: 999px; cursor: pointer;
+display: grid; place-items: center; font-size: 26px; line-height: 1;
+backdrop-filter: blur(2px);
+}
+.lb__nav:hover, .lb__close:hover { background: rgba(255,255,255,.28); }
+.lb__prev { justify-self: end; }
+.lb__next { justify-self: start; }
+.lb__close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; font-size: 24px; }
+
+@media (max-width: 576px){
+.lb { grid-template-columns: 1fr; }
+.lb__prev, .lb__next { position: absolute; top: 50%; transform: translateY(-50%);
+width: 40px; height: 40px; }
+.lb__prev { left: 10px; }
+.lb__next { right: 10px; }
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  background-color: #25D366;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  background-color: #25D366;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  background-color: #25D366;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebe5b;
+  transform: scale(1.05);
+}
+
+/* Estado inicial (oculto para scroll reveal) */
+.scroll-cta {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Estado visible */
+.scroll-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botón flotante WhatsApp (solo móvil) */
+.wa-float{
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 9999;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  display: none; /* oculto por defecto, lo mostramos en móvil */
+  align-items: center; justify-content: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.wa-float:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 14px 30px rgba(0,0,0,.28); background: #1ebe5b; }
+
+/* “Pulse” suave para llamar la atención */
+@keyframes wa-pulse{ 0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 70%{box-shadow:0 0 0 16px rgba(37,211,102,0)} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} }
+.wa-float{ animation: wa-pulse 2.2s infinite; }
+
+/* Mostrar solo en pantallas chicas */
+@media (max-width: 991px){
+  .wa-float{ display: inline-flex; }
+}
+
+/* CTA sección services */
+.btn-whatsapp{
+  display:inline-flex !important;
+  align-items:center !important;
+  background:#25D366 !important;
+  color:#fff !important;
+  padding:14px 24px !important;
+  border-radius:50px !important;
+  font-size:1.1rem !important;
+  font-weight:700 !important;
+  text-decoration:none !important;
+  transition:background .3s ease, transform .2s ease !important;
+}
+.btn-whatsapp:hover{ background:#1ebe5b !important; transform:scale(1.05) !important; }
+
+/* Scroll reveal */
+.scroll-cta{ opacity:0; transform:translateY(20px); transition:opacity .6s, transform .6s; }
+.scroll-cta.visible{ opacity:1; transform:translateY(0); }
+
+/* Botón flotante WhatsApp (visible SIEMPRE) */
+.wa-float{
+  position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom));
+  z-index:9999; width:56px; height:56px; border-radius:50%;
+  background:#25D366; display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  text-decoration:none; transition:transform .2s, box-shadow .2s, background-color .2s;
+  animation:wa-pulse 2.2s infinite;
+}
+.wa-float:hover{ transform:translateY(-2px) scale(1.03); box-shadow:0 14px 30px rgba(0,0,0,.28); background:#1ebe5b; }
+@keyframes wa-pulse{ 0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 70%{box-shadow:0 0 0 16px rgba(37,211,102,0)} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} }
+
+/* Ajustes de tamaño por viewport (opcional) */
+@media (max-width: 575px){ .wa-float{ width:52px; height:52px; } }
+@media (min-width: 1200px){ .wa-float{ width:60px; height:60px; } }
+
+/* Contacto a pantalla completa con fondo */
+#contact.contact-full{
+  position: relative;
+  min-height: 80vh;                 /* alto pantalla */
+  display: flex;
+  align-items: center;                /* centra verticalmente el contenido */
+  padding: 0; margin: 0;
+  background-color: #212529;          /* fallback */
+  background-image: url('{{ "/assets/img/contact.png" | relative_url }}');
+  background-size: cover;             /* que cubra todo */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Overlay para contraste del texto */
+#contact.contact-full .contact-overlay{
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 0;
+}
+#contact.contact-full .container{ position: relative; z-index: 1; }
+
+/* Parallax suave en desktop (opcional) */
+@media (min-width: 992px){
+  #contact.contact-full{ background-attachment: fixed; }
+}
+
+/* Botones (si ya los tenés, podés omitir) */
+.btn-whatsapp{
+  display:inline-flex; align-items:center;
+  background:#25D366; color:#fff; padding:14px 24px;
+  border-radius:50px; font-weight:700; text-decoration:none;
+  transition:background .3s ease, transform .2s ease;
+}
+.btn-whatsapp:hover{ background:#1ebe5b; transform:scale(1.03); }
+
+.btn-ig{
+  display:inline-flex; align-items:center;
+  background:#343a40; color:#fff; padding:14px 24px;
+  border-radius:50px; font-weight:700; text-decoration:none;
+  transition:background .3s ease, transform .2s ease;
+}
+.btn-ig:hover{ background:#2b3136; transform:scale(1.03); }
+
+/* Romper los márgenes laterales del layout (full-bleed) */
+.bleed{
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Alto un poco menor + fondo que se mueve con el scroll */
+#contact.contact-full{
+  min-height: 68vh;            /* antes 100vh: ahora más bajo */
+  display:flex; align-items:center;
+  background-color:#212529;
+  background-image:url('{{ "/assets/img/contact.png" | relative_url }}');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed; /* te gustó el efecto, lo dejamos */
+  padding:0; margin:0;
+}
+
+/* Overlay para contraste (si lo usás) */
+#contact .contact-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.35); z-index:0; }
+#contact .container{ position:relative; z-index:1; }
+
+/* Que el ancla no quede tapada por el navbar fijo */
+#contact{ scroll-margin-top: 96px; } /* ajustá según alto del nav */
+
+/* Romper márgenes laterales del layout (full-bleed a los bordes) */
+.bleed{
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Contacto: un poco más bajo y con efecto de scroll */
+#contact.contact-full{
+  min-height: 68vh;                 /* antes 100vh */
+  display: flex;
+  align-items: center;
+  padding: 0; margin: 0;
+  background-color: #212529;
+  background-image: url('{{ "/assets/img/contact.png" | relative_url }}'); /* o tu imagen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;     /* que “se mueva” con el scroll */
+}
+
+/* Overlay y stacking del contenido */
+#contact .contact-overlay{ position: absolute; inset: 0; background: rgba(0,0,0,.35); z-index: 0; }
+#contact .container{ position: relative; z-index: 1; }
+
+/* Que el ancla no quede tapada por el navbar fijo */
+#contact{ scroll-margin-top: 96px; }  /* ajustá a la altura real del nav */
+
+/* evita desbordes si quedó algún 100vw por ahí */
+html, body { overflow-x: hidden; }
+
+/* Contacto: más bajo y ancho completo */
+#contact.contact-full{
+  min-height: 65vh;                  /* más bajo */
+  display: flex; align-items: center;
+  padding: 0; margin: 0;
+  background: #212529 url('{{ "/assets/img/contact.png" | relative_url }}')
+              center / cover no-repeat fixed;  /* se “mueve” con el scroll */
+}
+/* overlay + stacking */
+#contact .contact-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.35); z-index:0; }
+#contact .container{ position:relative; z-index:1; }
+
+/* que el ancla no quede bajo el navbar fijo */
+#contact { scroll-margin-top: 110px; } /* ajustá 90–120 según tu nav */
+
+/* evitar scroll horizontal con el truco de 100vw */
+html, body { overflow-x: hidden; }
+
+/* full-bleed a bordes */
+.bleed{
+  width: 100vw;
+  position: relative;
+  left: 50%; right: 50%;
+  margin-left: -50vw; margin-right: -50vw;
+}
+
+/* más bajo + fondo que acompaña el scroll */
+#contact.contact-full{
+  min-height: 56vh;                 /* más bajito */
+  display: flex; align-items: center;
+  padding: 64px 0; margin: 0;
+  background: #212529 url('{{ "/assets/img/contact.png" | relative_url }}')
+              center / cover no-repeat fixed;
+}
+
+/* overlay y stacking */
+#contact .contact-overlay{ position: absolute; inset: 0; background: rgba(0,0,0,.35); z-index: 0; }
+#contact .container{ position: relative; z-index: 1; }
+
+/* que el ancla del nav no tape el título */
+#contact { scroll-margin-top: 110px; } /* ajustá 90–120 según tu navbar */
+
+/* Reset por si quedó algo viejo dando vueltas */
+#contact { position: relative; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
+
+/* Alto y centrado del contenido */
+#contact .container{
+  min-height: 56vh;                /* más bajito */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fondo a sangre sin usar 100vw (no desplaza nada) */
+#contact::before{
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);       /* extiende el fondo hasta los bordes del viewport */
+  background: #212529 url('{{ "/assets/img/contact.png" | relative_url }}')
+              center / cover no-repeat fixed;  /* se “mueve” con el scroll */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Que el ancla no quede bajo el navbar fijo */
+#contact{ scroll-margin-top: 110px; } /* ajustá 90–120 según la altura de tu nav */
+
+/* (Opcional) en móviles, desactivar el fixed si se ve entrecortado */
+@media (max-width: 991px){
+  #contact::before{
+    background-attachment: scroll;
+  }
+}
+
+/* Kaushan Script – self-hosted */
+@font-face{
+  font-family: 'Kaushan Script';
+  src: url('{{ "/assets/fonts/kaushan-script/KaushanScript-Regular.woff2" | relative_url }}') format('woff2'),
+       url('{{ "/assets/fonts/kaushan-script/KaushanScript-Regular.woff"  | relative_url }}') format('woff'),
+       url('{{ "/assets/fonts/kaushan-script/KaushanScript-Regular.ttf"   | relative_url }}') format('truetype'); /* opcional */
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Aplicar al título del header (brand) */
+.navbar-brand,
+.navbar-brand strong{
+  font-family: 'Kaushan Script', 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 400;
+  text-transform: none;
+}
+
+
+/* (Opcional) también al título grande del hero si querés */
+.masthead .intro-heading{
+  font-family: 'Kaushan Script', 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-transform: none;
+}
+
+/* Brand del navbar con Kaushan */
+.navbar-brand,
+.navbar-brand strong{
+  font-family: 'Kaushan Script', 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: .2px;
+  font-size: 1.55rem;        /* ajustá a gusto */
+  line-height: 1.1;
+}
+
+.navbar-dark .navbar-brand:hover { opacity: .9; }
+
+/* Ajuste en móviles */
+@media (max-width: 576px){
+  .navbar-brand{ font-size: 1.35rem; }
+}
+
+/* Ancla correcta para el menú */
+#galeria { scroll-margin-top: 110px; } /* ajustá según alto del navbar */
+
+/* Respira un poco a los lados en la versión scroll */
+#galeria .scroll-gallery{
+  padding-left: clamp(16px, 5vw, 40px);
+  padding-right: clamp(16px, 5vw, 40px);
+}
+
+/* Si usás grid y querés cero márgenes laterales reales */
+#galeria .container-fluid { padding-left: 0; padding-right: 0; }
+#galeria .row { margin-left: 0; margin-right: 0; }
+
+/* que el ancla del menú no quede bajo el navbar */
+#galeria { scroll-margin-top: 110px; }
+
+/* por si algún padding/gutter quiere colarse */
+#galeria .container-fluid { padding-left: 0; padding-right: 0; }
+#galeria .row.mx-0 { margin-left: 0; margin-right: 0; }
+
+/* opcional: un pelín de respiro en los bordes sólo en móvil */
+@media (max-width: 576px){
+  #galeria .container-fluid { padding-left: 8px; padding-right: 8px; }
+}
+
+/* Fondo gris full-bleed para secciones con título en container y grid en container-fluid */
+.section-bleed-bg{ position: relative; }
+.section-bleed-bg::before{
+  content:"";
+  position: absolute;
+  /* truco: estira el fondo hasta los bordes del viewport sin mover el layout */
+  inset: 0 calc(50% - 50vw);
+  background: #f8f9fa; /* mismo tono que .bg-light de Bootstrap */
+  z-index: 0;
+}
+/* que el contenido quede por encima del fondo */
+.section-bleed-bg > .container,
+.section-bleed-bg > .container-fluid{
+  position: relative;
+  z-index: 1;
+}
+
+/* (Opcional) separadores súper sutiles arriba/abajo */
+#galeria{
+  border-top: 1px solid rgba(0,0,0,.05);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+
+/* === GALERÍA: fondo gris a sangre + gutters === */
+.section-bleed-bg { position: relative; }
+.section-bleed-bg::before{
+  content:"";
+  position:absolute;
+  inset:0 calc(50% - 50vw);   /* full-bleed hasta bordes del viewport */
+  background:#f8f9fa;         /* gris suave */
+  z-index:0;
+  pointer-events:none;
+}
+.section-bleed-bg > .container,
+.section-bleed-bg > .container-fluid{
+  position:relative; z-index:1;
+}
+
+
+/* Cards */
+figure.gallery-card{ margin:0; }
+.gallery-card{
+  position: relative; overflow: hidden; border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12); background:#111; height: 100%;
+}
+.gallery-img{
+  aspect-ratio: 4 / 3;  /* (si quedaron bajitas, probá 16/10 → 4/3) */
+  object-fit: cover;
+  width: 100%;
+  display: block;
+}
+.gallery-card:hover .gallery-img{ transform:scale(1.06); opacity:.95; }
+.gallery-caption{
+  position:absolute; left:0; right:0; bottom:0; color:#fff;
+  padding:.6rem .9rem; font-weight:600; font-size:.95rem;
+  background: linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.65) 90%);
+}
+
+/* === CONTACTO: full background sin pseudo-elementos === */
+#contact {
+  position: relative;
+  background: #212529 url('/css/img/contact.png') center / cover no-repeat;
+  min-height: 100vh;           /* ocupa toda la pantalla */
+  padding: 6rem 0;             /* respiro interno */
+  display: flex;
+  align-items: center;         /* centra verticalmente */
+  scroll-margin-top: 110px;    /* ancla con navbar fijo */
+}
+
+/* Parallax solo en desktop grande (evita glitches mobile) */
+@media (min-width: 992px) {
+  #contact { background-attachment: fixed; }
+}
+
+
+
+/* Responsive: 2 columnas en tablet, 1 en mobile */
+@media (max-width: 991.98px){
+  #galeria .gal-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575.98px){
+  #galeria .gal-grid{ grid-template-columns: 1fr; }
+}
+
+#galeria .gal-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:32px;
+}
+@media (max-width:992px){ #galeria .gal-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:576px){ #galeria .gal-grid{ grid-template-columns:1fr; } }
+
+.g-item{ width:100%; }
+figure.gallery-card{ margin:0; height:100%; }
+.gallery-img{ width:100%; display:block; aspect-ratio:4/3; object-fit:cover; }
+
+
+/* === GALERÍA === */
+.section-bleed-bg {
+  position: relative;
+}
+.section-bleed-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw); /* fondo gris a sangre */
+  background: #f8f9fa;
+  z-index: 0;
+  pointer-events: none;
+}
+.section-bleed-bg > .container {
+  position: relative;
+  z-index: 1;
+}
+
+#galeria {
+  padding-top: 40px;
+  padding-bottom: 80px; /* aire dentro del gris */
+}
+
+.gal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+@media (max-width: 991.98px) {
+  .gal-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575.98px) {
+  .gal-grid { grid-template-columns: 1fr; }
+}
+
+figure.gallery-card {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  background: #111;
+  height: 100%;
+}
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.01);
+  transition: transform .35s ease, opacity .35s ease;
+}
+.gallery-card:hover .gallery-img {
+  transform: scale(1.06);
+  opacity: .95;
+}
+.gallery-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  color: #fff;
+  padding: .6rem .9rem;
+  font-weight: 600;
+  font-size: .95rem;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.65) 90%);
+}
+
+/* === CONTACTO === */
+#contact {
+  position: relative;
+  min-height: 100vh; /* pantalla completa */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+  background: #212529 url('/css/img/contact.png') center / cover no-repeat;
+  background-attachment: scroll; /* seguro en móviles */
+  margin-top: 0;
+}
+
+/* Parallax en desktop */
+@media (min-width: 992px) {
+  #contact {
+    background-attachment: fixed;
+  }
+}
+
+/* Overlay para contraste */
+#contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 0;
+}
+#contact .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ancla con navbar fijo */
+#contact {
+  scroll-margin-top: 110px;
+}
+
+/* Contacto full-screen, seguro en mobile */
+#contact {
+  position: relative;
+  min-height: 100vh;                      /* ocupa toda la pantalla */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;                        /* respiro interno */
+  background: #212529 url('/css/img/contact.png') center / cover no-repeat;
+  background-attachment: scroll;          /* evita glitches en móviles */
+  margin-top: 0;                          /* pegado al gris de galería */
+  overflow: hidden;                       /* previene desbordes raros */
+}
+
+/* Parallax SOLO en desktop */
+@media (min-width: 992px) {
+  #contact { background-attachment: fixed; }
+}
+
+/* Overlay para contraste (opcional) */
+#contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 0;
+}
+#contact .container { position: relative; z-index: 1; }
+
+/* Ancla con navbar fijo si usás menú fijo */
+#contact { scroll-margin-top: 110px; }
+
+
+/* =========================================================
+   AJUSTES FINALES FILETANGO (poner al FINAL del main.scss)
+   - Separa Services ↔ Galería
+   - Galería en CSS Grid con espacios
+   - Fondo gris full-bleed estable
+   - Contacto full-screen con overlay y parallax en desktop
+   ========================================================= */
+
+/* 1) Aire entre CTA de Services y Galería */
+#services {
+  margin-bottom: 56px !important;  /* 40–72px a gusto */
+}
+
+/* 2) Fondo gris a sangre + padding interno de Galería */
+.section-bleed-bg { position: relative !important; }
+.section-bleed-bg::before{
+  content:"";
+  position:absolute;
+  inset:0 calc(50% - 50vw);
+  background:#f8f9fa;      /* gris suave */
+  z-index:0;
+  pointer-events:none;
+}
+.section-bleed-bg > .container,
+.section-bleed-bg > .container-fluid{
+  position:relative; z-index:1;
+}
+
+/* 3) Galería en Grid (3×2 desktop → 2 cols tablet → 1 col mobile) */
+#galeria {
+  padding-top: 40px !important;
+  padding-bottom: 80px !important; /* respiro dentro del gris */
+  margin-bottom: 0 !important;
+  scroll-margin-top: 110px;        /* ancla con navbar fijo */
+}
+
+#galeria .gal-grid{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 32px !important;   /* espacio entre columnas y filas */
+}
+
+/* Si todavía quedaron columnas Bootstrap dentro, anulamos su padding/anchos */
+#galeria .gal-grid > [class*="col-"]{
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+@media (max-width: 991.98px){
+  #galeria .gal-grid{ grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 575.98px){
+  #galeria .gal-grid{ grid-template-columns: 1fr !important; }
+}
+
+/* Tarjeta/imagen (dejamos margen 0 y proporción prolija) */
+#galeria figure.gallery-card{ margin: 0 !important; height: 100% !important; }
+#galeria .gallery-img{
+  width: 100% !important;
+  display: block !important;
+  aspect-ratio: 4 / 3 !important;
+  object-fit: cover !important;
+}
+
+/* 4) Contacto full-screen (sin cortes) + overlay + parallax solo desktop */
+#contact {
+  position: relative !important;
+  min-height: 100vh !important;              /* ocupa toda la pantalla */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 64px 0 !important;                /* respiro interno */
+  margin-top: 0 !important;                  /* pegado al gris de galería */
+  overflow: hidden !important;
+
+  /* usá la ruta que ya venías usando en tu proyecto */
+  background: #212529 url('/css/img/contact.png') center / cover no-repeat !important;
+  background-attachment: scroll !important;  /* seguro en móviles */
+}
+
+/* Overlay para contraste del texto */
+#contact::before{
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,.35) !important;
+  z-index: 0 !important;
+}
+#contact .container{ position: relative !important; z-index: 1 !important; }
+
+/* Parallax solo en desktop grande (evita glitches mobile) */
+@media (min-width: 992px){
+  #contact{ background-attachment: fixed !important; }
+}
+
+/* 5) Seguridad: eliminá “pegoteo” residual si queda alguna row por ahí */
+#galeria .row,
+#galeria .row.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+
+/* =========================================================
+   AJUSTES FINALES (siempre al final de custom.css)
+   ========================================================= */
+
+/* Separación CTA Services ↔ Galería */
+#services { 
+  margin-bottom: 56px !important;  /* ajustá 40–72px a gusto */
+}
+
+/* Fondo gris a sangre estable para Galería */
+.section-bleed-bg { position: relative !important; }
+.section-bleed-bg::before{
+  content:"";
+  position:absolute;
+  inset:0 calc(50% - 50vw);
+  background:#f8f9fa;
+  z-index:0;
+  pointer-events:none;
+}
+.section-bleed-bg > .container,
+.section-bleed-bg > .container-fluid{ position:relative; z-index:1; }
+
+/* Galería en Grid con espacio */
+#galeria{
+  padding-top: 40px !important;
+  padding-bottom: 80px !important;   /* respiro dentro del gris */
+  margin-bottom: 0 !important;
+  scroll-margin-top: 110px;
+}
+
+#galeria .gal-grid{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 32px !important;               /* aire horizontal y vertical */
+}
+
+/* Si quedaron cols de Bootstrap adentro, anulá sus paddings */
+#galeria .gal-grid > [class*="col-"]{
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+/* Tarjetas */
+#galeria figure.gallery-card{ margin:0 !important; height:100% !important; }
+#galeria .gallery-img{
+  width:100% !important; display:block !important;
+  aspect-ratio: 4/3 !important; object-fit:cover !important;
+}
+
+/* Responsive grid */
+@media (max-width: 991.98px){
+  #galeria .gal-grid{ grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 575.98px){
+  #galeria .gal-grid{ grid-template-columns: 1fr !important; }
+}
+
+/* Contacto full-screen + overlay + parallax en desktop */
+#contact{
+  position: relative !important;
+  min-height: 100vh !important;               /* ocupa toda la pantalla */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 64px 0 !important;
+  margin-top: 0 !important;                   /* pegado al gris de galería */
+  overflow: hidden !important;
+
+  /* usa tu ruta real; en tu proyecto venía /css/img/contact.png */
+  background: #212529 url('/css/img/contact.png') center / cover no-repeat !important;
+  background-attachment: scroll !important;   /* seguro en móviles */
+}
+
+/* Overlay para contraste */
+#contact::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background: rgba(0,0,0,.35) !important;
+  z-index:0 !important;
+}
+#contact .container{ position:relative !important; z-index:1 !important; }
+
+/* Parallax solo en desktop (evita glitches mobile) */
+@media (min-width: 992px){
+  #contact{ background-attachment: fixed !important; }
+}
+
+/* Seguridad: cualquier .row vieja dentro de #galeria sin márgenes laterales */
+#galeria .row,
+#galeria .row.mx-0{ margin-left:0 !important; margin-right:0 !important; }
+
+/* Separar CTA de la galería */
+#services {
+  margin-bottom: 3rem; /* Ajustá según quieras más o menos espacio */
+}
+
+/* Espacio entre el título GALERÍA y el contenido */
+#galeria {
+  padding-top: 3rem;
+}
+
+/* Fondo para sección contacto */
+#contact {
+  background-image: url("/assets/img/contact.png"); /* Cambia ruta si está en otra carpeta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Ocupa toda la pantalla */
+  display: flex;
+  align-items: center;
+}
+
+/* ===== Espacio entre CTA (Services) y Galería ===== */
+/* si #galeria viene justo después de #services, separá */
+#services + #galeria { margin-top: 56px !important; }
+/* por si el botón está dentro de #services, dale respiro abajo */
+#services .btn-whatsapp { margin-bottom: 32px !important; }
+
+/* ===== Galería (seguimos con tu grid) ===== */
+#galeria { padding-top: 40px !important; }
+
+/* ===== Contacto full-screen + background ===== */
+#contact{
+  position: relative !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 64px 0 !important;
+  margin-top: 0 !important;
+  overflow: hidden !important;
+
+  /* color de base + 3 rutas posibles de la imagen (usa la que exista) */
+  background-color: #212529 !important;
+  background-image: url('/assets/img/contact.png'),
+                    url('/assets/css/img/contact.png'),
+                    url('/css/img/contact.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important; /* seguro en mobile */
+}
+
+/* Parallax solo en desktop */
+@media (min-width: 992px){
+  #contact{ background-attachment: fixed !important; }
+}
+
+/* Overlay para contraste del texto */
+#contact::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background: rgba(0,0,0,.35) !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+}
+#contact .container{ position:relative !important; z-index:1 !important; }
+
