@@ -1,37 +1,24 @@
 <!DOCTYPE html>
-<html lang="{{ site.locale | slice: 0,2 | default: 'en' }}">
+<html lang="{{ site.locale | slice: 0, 2 | default: 'es' }}">
   <head>
-    {% include head.html %}
-    <!-- (Opcional) CSS de GLightbox si usás lightbox -->
+    {% include head.html %}  <!-- sin <head> interno -->
+    <link rel="stylesheet" href="{{ '/assets/css/agency.css' | relative_url }}">
+    <!-- (opcional) Glightbox CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
   </head>
-  <a href="https://wa.me/5492235192443" class="wa-float" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="26" height="26" aria-hidden="true">
-	  <path fill="white" d="M380.9 97.1C339-5.2 217.7-31.3 129 33.5 73 72.1 38.1 139 40.1 210.4c1.5 57.5 24 110.7 62.5 151.6l-16.6 61.6c-2.1 7.7 5.1 14.7 12.8 12.1l62.7-20.8c39.3 20.9 84.2 29.2 128.6 24.3 71.4-7.7 137.8-54.6 167.4-120.9 38.4-82.9 20.5-182.7-46.6-241.2z"/>
-	</svg>
-  </a>
-  <link rel="stylesheet" href="{{ '/assets/css/agency.min.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
-	
-
-
   <body id="page-top">
     {% include navheader.html %}
-
     {{ content }}
-
     {% include footer.html %}
 
-    <!-- Core JS -->
     <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/bootstrap.bundle.min.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/jquery.easing.min.js' | relative_url }}"></script>
-
-    <!-- Contact form JS (si lo usás) -->
     <script src="{{ '/assets/js/jqBootstrapValidation.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/contact_me.js' | relative_url }}"></script>
-
-    <!-- (Opcional) JS de GLightbox si usás lightbox -->
-    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
-    <!-- Script
+    <script src="{{ '/assets/js/agency.js' | relative_url }}"></script>
+    <!-- (opcional) Glightbox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+    <script>/* init glightbox si lo usás */</script>
+  </body>
+</html>
