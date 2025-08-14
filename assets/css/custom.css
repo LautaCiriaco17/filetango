@@ -94,3 +94,32 @@
     margin-top: calc(-1 * (var(--nav-h) + 10px));
   }
 }
+
+/* Tipografías globales */
+:root{
+    --font-sans: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --font-serif: 'Roboto Slab', Georgia, serif;
+  }
+  body{ font-family: var(--font-sans) !important; }
+  h1,h2,h3,h4,h5,h6{ font-family: var(--font-sans) !important; font-weight: 800; }
+  
+  /* Anchos más amplios en desktop (sin ir full-bleed) */
+  @media (min-width:1200px){ .container{ max-width: 1320px; } }
+  @media (min-width:1400px){ .container{ max-width: 1440px; } }
+  
+  /* Opción full-bleed por sección (usá la clase en el HTML si querés borde a borde) */
+  .page-section.fullbleed > .container{
+    max-width: 100% !important;
+    padding-left: 24px; padding-right: 24px;
+  }
+  
+  /* Botón flotante WhatsApp (por si se perdió) */
+  .wa-float{
+    position: fixed; right: clamp(12px,2.5vw,22px); bottom: clamp(12px,2.5vw,22px);
+    width: clamp(52px,10vw,64px); height: clamp(52px,10vw,64px); border-radius: 50%;
+    background:#25D366; box-shadow:0 10px 24px rgba(0,0,0,.18);
+    display:grid; place-items:center; z-index:1050; transition:transform .15s, box-shadow .15s, opacity .2s; opacity:.98;
+  }
+  .wa-float:hover{ transform: translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.22); text-decoration:none; }
+  .wa-float svg{ width:58%; height:58%; fill:#fff; }
+  
