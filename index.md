@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: home
 title: Filetango | Fileteado Porteño
 ---
 
@@ -55,6 +55,9 @@ title: Filetango | Fileteado Porteño
         <p class="text-muted">Hacemos trabajos a pedido. Contanos tu idea y te armamos una propuesta a medida.</p>
       </div>
     </div>
+<!-- CTA WhatsApp (sección Services) -->
+
+<!-- CTA WhatsApp (sección Services) -->
 <div class="text-center mb-2">
   <a
     href="https://wa.me/5492235192443?text=Hola%20Filetango%2C%20vengo%20del%20sitio%20y%20quiero%20hacer%20una%20consulta"
