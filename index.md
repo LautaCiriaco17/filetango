@@ -61,7 +61,7 @@ title: Filetango
     aria-label="Consultar por WhatsApp"
     style="display:inline-flex;align-items:center;background:#25D366;color:#fff;padding:14px 24px;border-radius:50px;font-weight:700;text-decoration:none;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,.15);"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+    <svg xmlns="https://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
       <path fill="white" d="M380.9 97.1C339-5.2 217.7-31.3 129 33.5 73 72.1 38.1 139 40.1 210.4c1.5 57.5 24 110.7 62.5 151.6l-16.6 61.6c-2.1 7.7 5.1 14.7 12.8 12.1l62.7-20.8c39.3 20.9 84.2 29.2 128.6 24.3 71.4-7.7 137.8-54.6 167.4-120.9 38.4-82.9 20.5-182.7-46.6-241.2z"/>
     </svg>
     Consultar por WhatsApp
