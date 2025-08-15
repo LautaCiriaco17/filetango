@@ -1,45 +1,17 @@
-<head>
-  {% if site.analytics.google %}
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.analytics.google }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag("js", new Date());
-    gtag("config", "{{ site.analytics.google }}");
-  </script>
-  {% endif %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="{{ site.description }}">
-  <meta name="author" content="{{ site.author }}">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Kaushan+Script&family=Roboto+Slab:wght@100;300;400;700&display=swap" rel="stylesheet">
 
-  <title>{% if page.title %}{{ page.title | append: " | " | append: site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <link rel="stylesheet" href="{{ '/assets/css/fallback.css' | relative_url }}">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url }}">
+<link href="{{ '/assets/css/all.min.css' | relative_url }}" rel="stylesheet">
+<link href="{{ '/assets/css/bootstrap.min.css' | relative_url }}" rel="stylesheet">
+<link href="{{ '/assets/css/agency.css' | relative_url }}" rel="stylesheet">
 
-  <!-- Iconos -->
-  <link rel="stylesheet" href="{{ '/assets/css/all.min.css' | relative_url }}">
-
-  <!-- Fuentes -->
-  {% if site.data.style.fonts_urls %}
-    {% for font_url in site.data.style.fonts_urls %}
-      <link rel="stylesheet" href="{{ font_url }}" type="text/css">
-    {% endfor %}
-  {% else %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700">
-  {% endif %}
-
-  <!-- CSS del theme (usa agency.css, no el .min) -->
-  <link rel="stylesheet" href="{{ '/assets/css/agency.css' | relative_url }}">
-
-  <!-- Tu CSS (siempre último) -->
-  <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-</head>
+<!-- SIEMPRE último -->
+<link href="{{ '/assets/css/custom.css?v=' | append: site.time | relative_url }}" rel="stylesheet">
