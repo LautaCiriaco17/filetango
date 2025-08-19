@@ -1,16 +1,33 @@
-title: "Filetango | Fileteado Porteño"
-description: "Fileteado porteño por Lautaro"
-url: "https://filetango.com.ar"     # dominio propio
-baseurl: ""                         # vacío con dominio propio
-cat > _config.yml <<'YML'
-title: "Filetango | Fileteado Porteño"
-description: "Fileteado porteño por Lautaro"
-url: "https://filetango.com.ar"     # dominio propio
-baseurl: ""                         # vacío con dominio propio
+# ---------------------------
+# Jekyll config (válido YAML)
+# ---------------------------
 
-remote_theme: raviriley/agency-jekyll-theme
+title: "Filetango | Fileteado Porteño"
+email: "lautaro.ciriacogm@gmail.com"
+description: "Sitio web fileteado porteño y otras yerbas"
+author: "StartWeb"
+locale: "es-AR"
+
+url: "https://filetango.com.ar"   # o "http://127.0.0.1:4007" si querés test local
+baseurl: ""                        # vacío si el sitio cuelga del root
+
+# NO usar theme: con GitHub Pages
+# theme: jekyll-agency
+
+remote_theme: "raviriley/agency-jekyll-theme"
 
 plugins:
-  - jekyll-remote-theme
   - jekyll-include-cache
   - jekyll-feed
+
+collections:
+  portfolio:
+    output: true
+
+markdown: kramdown
+
+style:
+  header-image: "/assets/img/filetango-header.jpg"
+
+analytics:
+  google:
